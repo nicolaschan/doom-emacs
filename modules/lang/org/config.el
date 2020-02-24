@@ -729,11 +729,25 @@ compelling reason, so..."
       (and (eq action 'insert)
            (org-in-src-block-p)))
 
+    (defun +org-sp-in-latex-braces-p (_id action _context)
+      (and (eq action 'insert)
+           (org-in-regexp "\\\\\\w+{[^{}\n]*}")))
+
+    (defun +org-sp-in-settings-decl-p (_id action _context)
+      (and (eq action 'insert)
+           (org-in-regexp "#\+.*")))
+
+    (defun +org-sp-in-latex-block-p (_id action _context)
+      (and (eq action 'insert)
+           (org-between-regexps-p
+            "\\\\begin{[^{}\n]*}"
+            "\\\\end{[^{}\n]*}")))
+
     ;; make delimiter auto-closing a little more conservative
     (sp-with-modes 'org-mode
-      (sp-local-pair "*" "*" :unless '(:add sp-point-before-word-p sp-in-math-p +org-sp-point-at-bol-p +org-sp-in-src-block-p))
-      (sp-local-pair "_" "_" :unless '(:add sp-point-before-word-p sp-in-math-p +org-sp-in-src-block-p))
-      (sp-local-pair "/" "/" :unless '(:add sp-point-before-word-p sp-in-math-p +org-sp-point-in-checkbox-p +org-sp-in-src-block-p))
+      (sp-local-pair "*" "*" :unless '(:add +org-sp-in-latex-braces-p sp-point-before-word-p sp-in-math-p +org-sp-point-at-bol-p +org-sp-in-src-block-p))
+      (sp-local-pair "_" "_" :unless '(:add +org-sp-in-settings-decl-p sp-point-before-word-p sp-in-math-p +org-sp-in-src-block-p))
+      (sp-local-pair "/" "/" :unless '(:add +org-sp-in-latex-block-p sp-point-before-word-p sp-in-math-p +org-sp-point-in-checkbox-p +org-sp-in-src-block-p))
       (sp-local-pair "~" "~" :unless '(:add sp-point-before-word-p +org-sp-in-src-block-p))
       (sp-local-pair "=" "=" :unless '(:add sp-point-before-word-p sp-in-math-p +org-sp-in-src-block-p)))))
 
