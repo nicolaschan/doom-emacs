@@ -745,11 +745,11 @@ compelling reason, so..."
 
     ;; make delimiter auto-closing a little more conservative
     (sp-with-modes 'org-mode
-      (sp-local-pair "*" "*" :unless '(:add +org-sp-in-latex-braces-p sp-point-before-word-p sp-in-math-p +org-sp-point-at-bol-p +org-sp-in-src-block-p))
-      (sp-local-pair "_" "_" :unless '(:add +org-sp-in-settings-decl-p sp-point-before-word-p sp-in-math-p +org-sp-in-src-block-p))
-      (sp-local-pair "/" "/" :unless '(:add +org-sp-in-latex-block-p sp-point-before-word-p sp-in-math-p +org-sp-point-in-checkbox-p +org-sp-in-src-block-p))
+      (sp-local-pair "*" "*" :unless '(:add sp-point-before-word-p sp-in-math-p +org-sp-point-at-bol-p +org-sp-in-src-block-p +org-sp-in-latex-braces-p))
+      (sp-local-pair "_" "_" :unless '(:add sp-point-before-word-p sp-in-math-p +org-sp-in-src-block-p +org-sp-in-settings-decl-p +org-sp-in-latex-block-p))
+      (sp-local-pair "/" "/" :unless '(:add sp-point-before-word-p sp-in-math-p +org-sp-point-in-checkbox-p +org-sp-in-src-block-p +org-sp-in-latex-block-p))
       (sp-local-pair "~" "~" :unless '(:add sp-point-before-word-p +org-sp-in-src-block-p))
-      (sp-local-pair "=" "=" :unless '(:add sp-point-before-word-p sp-in-math-p +org-sp-in-src-block-p)))))
+      (sp-local-pair "=" "=" :unless '(:add sp-point-before-word-p sp-in-math-p +org-sp-in-src-block-p +org-sp-in-latex-block-p)))))
 
 
 ;;
